@@ -5,7 +5,9 @@
         <div class="app-logo"></div>
         <div class="app-toggle-aside-btn" @click="()=>toggle_aside()"></div>
         <div class="app-header-menu">bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</div>
-        <div class="app-header-right">aa</div>
+        <div class="app-header-right">
+          <HeaderAvatar></HeaderAvatar>
+        </div>
       </div>
       <div class="app-body">
         <div class="app-body-aside" :class="{'full': full}">
@@ -22,7 +24,9 @@
   </div>
 </template>
 <script>
+import HeaderAvatar from "./pie/HeaderAvatar";
 export default {
+  components: { HeaderAvatar },
   data() {
     return {
       full: true

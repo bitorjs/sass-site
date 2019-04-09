@@ -70,7 +70,7 @@ module.exports = {
       }]
     },
     {
-      test: /\.(eot|ttf|woff|svg)$/,
+      test: /\.(eot|ttf|woff|woff2|svg)$/,
       use: 'file-loader'
     }
     ]

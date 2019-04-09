@@ -3,10 +3,9 @@
     <a-form ref="formRegister" :form="form" id="formRegister">
       <a-form-item>
         <a-input
-          v-decorator="['email',{rules: [{ required: true, message: '请输入注册账号' },  { validator: this.handleUsernameCheck }], validateTrigger: ['change', 'blur']}]"
+          v-decorator="['username',{rules: [{ required: true, message: '请输入注册账号' },  { validator: this.handleUsernameCheck }], validateTrigger: ['change', 'blur']}]"
           size="large"
           type="text"
-          v-model="username"
           placeholder="账号"
         ></a-input>
       </a-form-item>
@@ -20,7 +19,7 @@
             <a-progress
               :percent="state.percent"
               :showInfo="false"
-              :strokeColor=" passwordLevelColor "
+              :strokeColor="passwordLevelColor"
             />
             <div style="margin-top: 10px;">
               <span>请至少输入 6 个字符。请不要使用容易被猜到的密码。</span>
@@ -31,7 +30,6 @@
           <a-input
             v-decorator="['password',{rules: [{ required: true, message: '至少6位密码'}, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
             size="large"
-            v-model="password"
             type="password"
             @click="handlePasswordInputClick"
             autocomplete="false"
@@ -49,45 +47,7 @@
           placeholder="确认密码"
         ></a-input>
       </a-form-item>
-      <!--
-      <a-form-item
-        v-decorator="['mobile']"
-        :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }">
-        <a-input size="large" placeholder="11 位手机号">
-          <a-select slot="addonBefore" size="large" defaultValue="+86">
-            <a-select-option value="+86">+86</a-select-option>
-            <a-select-option value="+87">+87</a-select-option>
-          </a-select>
-        </a-input>
-      </a-form-item>
-      <a-input-group size="large" compact>
-            <a-select style="width: 20%" size="large" defaultValue="+86">
-              <a-select-option value="+86">+86</a-select-option>
-              <a-select-option value="+87">+87</a-select-option>
-            </a-select>
-            <a-input style="width: 80%" size="large" placeholder="11 位手机号"></a-input>
-          </a-input-group>
 
-      <a-row :gutter="16">
-        <a-col class="gutter-row" :span="16">
-          <a-form-item
-            v-decorator="['captcha']"
-            :fieldDecoratorOptions="{rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}">
-            <a-input size="large" type="text" placeholder="验证码">
-              <a-icon slot="prefix" type='mail' :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
-        </a-col>
-        <a-col class="gutter-row" :span="8">
-          <a-button
-            class="getCaptcha"
-            size="large"
-            :disabled="state.smsSendBtn"
-            @click.stop.prevent="getCaptcha"
-            v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"></a-button>
-        </a-col>
-      </a-row>
-      -->
       <a-form-item>
         <a-button
           size="large"
@@ -125,7 +85,6 @@ const levelColor = {
 };
 export default {
   name: "Regist",
-  components: {},
   data() {
     return {
       username: "",
@@ -222,10 +181,6 @@ export default {
       }
     },
 
-    // handlePhoneCheck (rule, value, callback) {
-    //   callback()
-    // },
-
     handlePasswordInputClick() {
       if (!this.isMobile()) {
         this.state.passwordLevelChecked = true;
@@ -235,11 +190,12 @@ export default {
     },
 
     handleSubmit() {
-      this.form.validateFields((err, values) => {
+      this.form.validateFields(["username", "password"], (err, values) => {
         if (!err) {
+          console.log(this.username, this.password);
           this.$post("regist", {
-            username: this.username,
-            password: this.password
+            username: this.form.getFieldValue("username"),
+            password: this.form.getFieldValue("password")
           })
             .then(() => {
               this.$message.success("注册成功");
@@ -251,26 +207,7 @@ export default {
         }
       });
     },
-    // getCaptcha (e) {
-    //   e.preventDefault()
-    //   let that = this
-    //
-    //   this.form.validateFields(['mobile'], {force: true},
-    //     (err, values) => {
-    //       if (!err) {
-    //         this.state.smsSendBtn = true
-    //
-    //         let interval = window.setInterval(() => {
-    //           if (that.state.time-- <= 0) {
-    //             that.state.time = 60
-    //             that.state.smsSendBtn = false
-    //             window.clearInterval(interval)
-    //           }
-    //         }, 1000)
-    //       }
-    //     }
-    //   )
-    // },
+
     returnLogin() {
       this.$emit("regist", "Login");
     }

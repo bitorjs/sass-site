@@ -42,9 +42,12 @@
             <a-input
               size="large"
               placeholder="手机号"
-              v-decorator="['mobile', {rules: [{ required: true, message: '请输入手机号', whitespace: true}]}]"
+              v-decorator="['mobile', {rules: [{ required: true, message: '请输入正确的手机号', pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]"
             >
-              <a-icon slot="prefix" type="mobile"></a-icon>
+              <a-select slot="addonBefore" size="large" defaultValue="+86">
+                <a-select-option value="+86">+86</a-select-option>
+                <a-select-option value="+87">+87</a-select-option>
+              </a-select>
             </a-input>
           </a-form-item>
           <a-form-item>
@@ -53,7 +56,7 @@
                 <a-input
                   size="large"
                   placeholder="验证码"
-                  v-decorator="['mail', {rules: [{ required: true, message: '请输入验证码', whitespace: true}]}]"
+                  v-decorator="['mail', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]"
                 >
                   <a-icon slot="prefix" type="mail"></a-icon>
                 </a-input>
@@ -63,7 +66,9 @@
                   style="width: 100%"
                   class="captcha-button"
                   size="large"
-                  @click="getCaptcha"
+                  :disabled="state.smsSendBtn"
+                  @click.stop.prevent="getCaptcha"
+                  v-text="!state.smsSendBtn && '获取验证码'||(state.time+' s')"
                 >获取验证码</a-button>
               </a-col>
             </a-row>
@@ -96,7 +101,15 @@ export default {
       // form: null,
       loading: false,
       error: "",
-      activeKey: "1"
+      activeKey: "1",
+      state: {
+        time: 60,
+        smsSendBtn: false,
+        passwordLevel: 0,
+        passwordLevelChecked: false,
+        percent: 10,
+        progressColor: "#FF0000"
+      }
     };
   },
   beforeCreate() {
@@ -116,6 +129,7 @@ export default {
   },
   methods: {
     doLogin() {
+      console.log(0);
       if (this.activeKey === "1") {
         // 用户名密码登录
         this.form.validateFields(["name", "password"], (errors, values) => {
@@ -175,8 +189,27 @@ export default {
     regist() {
       this.$emit("regist", "Regist");
     },
-    getCaptcha() {
-      this.$message.warning("暂未开发");
+
+    handlePhoneCheck(rule, value, callback) {
+      callback();
+    },
+    getCaptcha(e) {
+      e.preventDefault();
+      let that = this;
+
+      this.form.validateFields(["mobile"], { force: true }, (err, values) => {
+        if (!err) {
+          this.state.smsSendBtn = true;
+
+          let interval = window.setInterval(() => {
+            if (that.state.time-- <= 0) {
+              that.state.time = 60;
+              that.state.smsSendBtn = false;
+              window.clearInterval(interval);
+            }
+          }, 1000);
+        }
+      });
     },
     handleTabsChange(val) {
       this.activeKey = val;
