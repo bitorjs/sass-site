@@ -3,15 +3,40 @@
     <div class="app-container">
       <div class="app-header">
         <div class="app-logo"></div>
-        <div class="app-toggle-aside-btn" @click="()=>toggle_aside()"></div>
-        <div class="app-header-menu">bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</div>
+        <div class="app-toggle-aside-btn" @click="()=>toggle_aside()">
+          <a-icon width="100px" hight="100px" :type="`menu-${full?'':'un'}fold`"/>
+        </div>
+        <div class="app-header-menu">
+          <a-menu mode="horizontal">
+            <a-menu-item v-for="menu in ctx.$store.state.main.topMenu" :key="menu.name">
+              <span @click="menu.click">{{menu.name}}</span>
+            </a-menu-item>
+          </a-menu>
+        </div>
         <div class="app-header-right">
           <HeaderAvatar></HeaderAvatar>
         </div>
       </div>
       <div class="app-body">
         <div class="app-body-aside" :class="{'full': full}">
-          <div class="app-body-aside-menu"></div>
+          <div class="app-body-aside-menu">
+            <a-menu mode="inline">
+              <template v-for="menu in ctx.$store.state.main.sideMenu">
+                <a-menu-item
+                  :key="menu.name"
+                  v-if="!(menu.children&&menu.chilren.length>0)"
+                  @click="menu.click"
+                >{{menu.name}}</a-menu-item>
+                <a-sub-menu :title="menu.name" v-else :key="menu.name">
+                  <a-menu-item
+                    v-for="subMenu in menu.children"
+                    :key="subMenu.name"
+                    @click="subMenu.click"
+                  >{{subMenu.name}}</a-menu-item>
+                </a-sub-menu>
+              </template>
+            </a-menu>
+          </div>
         </div>
         <div class="app-body-main">
           <div class="app-body-main-header"></div>
@@ -29,8 +54,12 @@ export default {
   components: { HeaderAvatar },
   data() {
     return {
-      full: true
+      full: true,
+      test: []
     };
+  },
+  mounted() {
+    console.log(this.ctx.$store.state.main);
   },
   methods: {
     toggle_aside() {
@@ -53,6 +82,36 @@ html {
 body .vue-app a,
 html .vue-app a {
   text-decoration: none;
+}
+
+.ant-menu {
+  background: transparent;
+  border: none;
+  .ant-menu-root {
+    background: transparent;
+    border: none;
+  }
+
+  .ant-menu-sub {
+    background: transparent;
+    border: none;
+  }
+
+  .ant-menu-item-selected {
+    background-color: transparent;
+    // &::after {
+    //   border: none;
+    // }
+  }
+
+  li {
+    text-align: center;
+    span {
+      display: inline-block;
+      width: 100%;
+      height: 100%;
+    }
+  }
 }
 </style>
 <style lang="less" scoped>

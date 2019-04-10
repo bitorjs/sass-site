@@ -5,8 +5,6 @@ import {
   Middleware
 } from 'bitorjs-decorators';
 import login from '../view/pages/login';
-import home from '../view/pages/home';
-import wiki from '../view/pages/wiki';
 
 @Controller('/')
 export default class {
@@ -22,17 +20,4 @@ export default class {
   async login() {
     this.ctx.render(login, null)
   }
-
-  @Get('/home')
-  @Middleware('login')
-  async Index() {
-    this.ctx.render(home)
-  }
-
-  @Get('/wiki')
-  @Middleware('login')
-  async markdown() {
-    this.ctx.render(wiki)
-  }
-
 }

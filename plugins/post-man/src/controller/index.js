@@ -6,7 +6,7 @@ import {
 } from 'bitorjs-decorators';
 import index from '../view/';
 
-@Controller('/mock')
+@Controller('/post-man')
 export default class {
   @Get('/')
   @Middleware('login')
