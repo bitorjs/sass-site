@@ -19,12 +19,7 @@
                 :key="item.category"
                 :text="item.category"
               >
-                {{item.query}} 在
-                <a
-                  :href="`/#/cnpm/search?q=${item.query}`"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >{{item.category}}</a>
+                <a :href="`/#/cnpm/search?q=${item.query}`" target="_blank">{{item.category}}</a>
               </a-select-option>
             </template>
             <a-input>
@@ -36,7 +31,7 @@
     </header>
     <div class="content">
       <transition name="fade" mode="out-in">
-        <component :is="view"></component>
+        <component :is="view" :data="data"></component>
       </transition>
     </div>
   </div>
@@ -56,6 +51,8 @@ export default {
   },
   data() {
     return {
+      host: "http://localhost:1029",
+      data: null,
       dataSource: []
     };
   },
@@ -77,19 +74,23 @@ export default {
     },
 
     searchResult(query) {
-      return new Array(this.getRandomInt(5))
-        .join(".")
-        .split(".")
-        .map((item, idx) => ({
-          query,
-          category: `${query}${idx}`,
-          count: this.getRandomInt(200, 100)
-        }));
+      this.ctx.$ajax.get(`${this.host}/search/suggestions/${query}`, res => {
+        console.log(res);
+      });
+
+      // return new Array(this.getRandomInt(5))
+      //   .join(".")
+      //   .split(".")
+      //   .map((item, idx) => ({
+      //     query,
+      //     category: `${query}${idx}`,
+      //     count: this.getRandomInt(200, 100)
+      //   }));
     }
   }
 };
 </script>
-<style lang="less" scoped>
+<style lang="less">
 .fade-enter-active,
 .fade-leave-active {
   transition: all 0.2s ease;
@@ -205,7 +206,7 @@ center {
 
 .global-search-item-count {
   position: absolute;
-  right: 16px;
+  // right: 16px;
 }
 </style>
 

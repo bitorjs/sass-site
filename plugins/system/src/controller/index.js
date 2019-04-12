@@ -9,9 +9,11 @@ import users from '../view/users';
 import roles from '../view/roles';
 import menus from '../view/menus';
 import products from '../view/products';
+import menu from '../menu';
 
 @Controller('/system')
 @Middleware('login')
+@Middleware(menu)
 export default class {
   @Get('/')
   async index() {

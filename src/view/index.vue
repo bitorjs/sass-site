@@ -24,7 +24,7 @@
               <template v-for="menu in ctx.$store.state.main.sideMenu">
                 <a-menu-item
                   :key="menu.name"
-                  v-if="!(menu.children&&menu.chilren.length>0)"
+                  v-if="!(menu.children&&menu.children.length>0)"
                   @click="menu.click"
                 >{{menu.name}}</a-menu-item>
                 <a-sub-menu :title="menu.name" v-else :key="menu.name">
@@ -101,16 +101,7 @@ html .vue-app a {
     background-color: transparent;
     // &::after {
     //   border: none;
-    // }
-  }
-
-  li {
-    text-align: center;
-    span {
-      display: inline-block;
-      width: 100%;
-      height: 100%;
-    }
+    // }rgba(230, 247, 255, 0.6);
   }
 }
 </style>
@@ -162,6 +153,12 @@ html .vue-app a {
         flex-grow: 1;
         align-items: center;
         overflow: hidden;
+
+        span {
+          display: inline-block;
+          width: 100%;
+          height: 100%;
+        }
       }
 
       &-right {
@@ -190,6 +187,17 @@ html .vue-app a {
         &-menu {
           .position_full();
           overflow: hidden;
+
+          .ant-menu-item-selected {
+            background-color: rgba(230, 247, 255, 0.6);
+            // &::after {
+            //   border: none;
+            // }rgba(230, 247, 255, 0.6);
+          }
+
+          ul ul li {
+            padding-left: 24px !important;
+          }
         }
         &.full {
           width: 200px; //65px;
