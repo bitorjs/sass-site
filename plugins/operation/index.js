@@ -1,13 +1,10 @@
-import Vue from 'vue'
-import mavonEditor from 'mavon-editor'
-import 'mavon-editor/dist/css/index.css'
-Vue.use(mavonEditor)
 export default app => {
   app.on('ready', () => {
     app.ctx.$store.state.main.topMenu.push({
-      name: '文档管理',
+      name: '运维管理',
       click: () => {
-        app.redirect('/wiki');
+        app.redirect('/operation')
+
       }
     })
   })

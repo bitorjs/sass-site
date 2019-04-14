@@ -8,7 +8,7 @@
 | language     | String    | cn             | 语言选择，暂支持 cn: 中文简体 ， en: 英文 ， fr: 法语        |
 | scrollStyle  | Boolean   | true           | 开启滚动条样式(暂时仅支持chrome)                             |
 | subfield     | Boolean   | true           | true： 双栏(编辑预览同屏)， false： 单栏(编辑预览分屏)       |
-| default_open | String    |                | edit： 默认展示编辑区域 ， preview： 默认展示预览区域  , 其他 = edit |
+| defaultOpen | String    |                | edit： 默认展示编辑区域 ， preview： 默认展示预览区域  , 其他 = edit |
 | placeholder  | String    | 开始编辑...    | 输入框为空时默认提示文本                                     |
 | editable     | Boolean   | true           | 是否允许编辑                                                 |
 | code_style   | String    | code-github    | markdown样式： 默认github, [可选配色方案](https://link.jianshu.com?t=.%2Fsrc%2Flib%2Fcore%2Fhljs%2Flang.hljs.css.js) |
@@ -16,6 +16,7 @@
 | toolbars     | Object    | 如下例         | 工具栏                                                       |
 | ishljs       | Boolean   | true           | 代码高亮(cdn外链)                                            |
 
+externalLink 去掉 cdn 外链
 ```
  /*
     默认工具栏按钮全部开启, 传入自定义对象

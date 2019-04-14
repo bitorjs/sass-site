@@ -89,6 +89,7 @@ export default class extends Application {
           } else {// if(method === "post")
             this.ctx.body = Object.assign(this.ctx.body, params);
           }
+
           return route.handle(this.ctx)
         } else {
           return Promise.reject(`未找到路由[${url}]`);

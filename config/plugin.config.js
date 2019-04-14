@@ -5,6 +5,7 @@ import cnpm from '../plugins/cnpm';
 import postMan from '../plugins/post-man';
 import system from '../plugins/system';
 import collection from '../plugins/collection';
+import operation from '../plugins/operation';
 
 
 export default [
@@ -43,4 +44,12 @@ export default [
     module: collection,
     enable: true
   },
+
+  {
+    name: 'operation',
+    module: operation,
+    enable: true
+  },
+
+
 ]

@@ -13,10 +13,10 @@ export default async (ctx, next) => {
       }
     },
     {
-      name: "百度",
+      name: "二维码",
       click: () => {
         redirect(ctx)
-        store.openUrl = "https://www.baidu.com"
+        store.openUrl = "http://www.wwei.cn/"
       }
     },
     {
@@ -25,25 +25,6 @@ export default async (ctx, next) => {
         redirect(ctx)
         store.openUrl = "https://www.json.cn/"
       }
-    },
-    {
-      name: "发布系统",
-      children: [
-        {
-          name: '瓦力一',
-          click: () => {
-            redirect(ctx)
-            store.openUrl = "http://walle.adatafun.com/"
-          }
-        },
-        {
-          name: "瓦力二",
-          click: () => {
-            redirect(ctx)
-            store.openUrl = "http://walle1.adatafun.com/"
-          }
-        },
-      ]
     },
   ]
 

@@ -4,7 +4,7 @@
       <a-tree-select
         style="flex:1;"
         showSearch
-        placeholder="Please select"
+        placeholder="请选择"
         allowClear
         treeDefaultExpandAll
         @change="onChangeFormat"

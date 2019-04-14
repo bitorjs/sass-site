@@ -1,7 +1,7 @@
 <template>
 <div>
   <head>http://mockjs.com/examples.html#</head>
-  <single style="width:600px;" @change="singleChange"></single>
+  <single style="width:400px;" @change="singleChange"></single>
   <a-row :gutter="24">
     <a-col :span="12">
       <a-card title="Data Template" :bordered="false">

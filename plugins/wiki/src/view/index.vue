@@ -1,19 +1,22 @@
 <template>
   <mavon-editor
     v-model="value"
-    :subfield="false"
-    :default_open="'edit'"
-    ref="md"
+    :ishljs="true"
     @imgAdd="imgAdd"
     @imgDel="imgDel"
     @change="change"
     @save="save"
+    :subfield="ctx.$store.state.wiki.editable"
+    :defaultOpen="ctx.$store.state.wiki.editable?'edit':'preview'"
+    :toolbarsFlag="ctx.$store.state.wiki.editable"
+    :editable="ctx.$store.state.wiki.editable"
+    ref="md"
   />
 </template>
 <script>
 // :toolbarsFlag="false"
 // :subfield="false"
-// :default_open="'preview'"
+// :defaultOpen="'preview'"
 export default {
   name: "wiki",
   data() {
@@ -55,3 +58,8 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.markdown-body {
+  height: 100%;
+}
+</style>

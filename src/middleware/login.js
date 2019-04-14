@@ -1,6 +1,6 @@
-export default (ctx, next) => {
+export default async (ctx, next) => {
   if (!ctx.user) {
-    next()
+    return await next()
   } else {
     ctx.app.redirect('/login')
   }

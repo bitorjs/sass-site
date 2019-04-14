@@ -1,7 +1,6 @@
 <template>
   <div class="single-container" :style="style">
     <a-input-group compact>
-      <a-input class="auto" v-model="name" style="width:100px;" placeholder="字段"/>
       <a-input class="auto" v-model="initNo" style="width:100px;" placeholder="初始值"/>
       <a-select style="min-width:80px;" :defaultValue="currentType" @change="changeType">
         <a-select-option
@@ -24,7 +23,7 @@ export default {
   data() {
     return {
       style: "",
-      name: "字段",
+      name: "xxxxxx",
       rule: "",
       initNo: "",
       isNeedNo: true,

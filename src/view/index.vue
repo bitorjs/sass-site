@@ -4,7 +4,7 @@
       <div class="app-header">
         <div class="app-logo"></div>
         <div class="app-toggle-aside-btn" @click="()=>toggle_aside()">
-          <a-icon width="100px" hight="100px" :type="`menu-${full?'':'un'}fold`"/>
+          <a-icon style="fontSize:24px;" :type="`menu-${full?'':'un'}fold`"/>
         </div>
         <div class="app-header-menu">
           <a-menu mode="horizontal">
@@ -64,9 +64,6 @@ export default {
   methods: {
     toggle_aside() {
       this.full = !this.full;
-      // this.setState({
-      //   full: !this.full
-      // });
     }
   }
 };
