@@ -76,12 +76,13 @@ export default class extends Koa {
       let instance;
       try {
         instance = new defaultService(this.context);
+        instance.ctx = this.context;
       } catch (error) {
         console.log(defaultService, error)
       } finally {
         // console.log(defaultService.constructor)
       }
-      instance.ctx = this.context;
+
       let name = decorators.getService(defaultService);
       if (name) {
         serviceName = name;
@@ -105,7 +106,7 @@ export default class extends Koa {
     delete allService.default;
     let extraServices = Object.keys(allService);
     if (extraServices.length > 0) {
-      if (serviceName === undefined) {
+      if (serviceName !== undefined) {
         this.context.$service[serviceName] = {};
       }
       extraServices.forEach(key => {

@@ -70,27 +70,28 @@ export default class extends Application {
     decorators.methods.forEach((method) => {
       this.ctx[`$${method}`] = Vue.prototype[`$${method}`] = (url, params) => {
 
-        this.ctx.params = {}
-        this.ctx.query = {}
-        this.ctx.body = {}
+        let ctx = Object.create(this.ctx);
+        ctx.params = {}
+        ctx.query = {}
+        ctx.body = {}
         let urlParts = url.split("?")
         let routes = router.match(urlParts[0], method);
         console.log(routes)
         let route = routes[0];
         if (route && !route.params['0']) {
-          this.ctx.params = route.params;
+          ctx.params = route.params;
 
           if (urlParts[1]) {
-            this.ctx.query = Object.assign(this.ctx.query, qs.parse(urlParts[1]))
+            ctx.query = Object.assign(ctx.query, qs.parse(urlParts[1]))
           }
 
           if (method === "get") {
-            this.ctx.query = Object.assign(this.ctx.query, params);
+            ctx.query = Object.assign(ctx.query, params);
           } else {// if(method === "post")
-            this.ctx.body = Object.assign(this.ctx.body, params);
+            ctx.body = Object.assign(ctx.body, params);
           }
 
-          return route.handle(this.ctx)
+          return route.handle(ctx)
         } else {
           return Promise.reject(`未找到路由[${url}]`);
         }

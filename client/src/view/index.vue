@@ -149,7 +149,8 @@ html .vue-app a {
         flex-shrink: 1;
         flex-grow: 1;
         align-items: center;
-        overflow: hidden;
+        overflow-y: hidden;
+        overflow-x: auto;
 
         span {
           display: inline-block;

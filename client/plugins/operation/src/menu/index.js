@@ -21,6 +21,13 @@ export default async (ctx, next) => {
       name: '应用中心',
       click: () => { }
     },
+
+    {
+      name: 'GitLab',
+      click: () => {
+        ctx.app.redirect('/operation/gitlab')
+      }
+    },
   ]
 
   await next()

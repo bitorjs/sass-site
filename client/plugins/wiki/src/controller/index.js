@@ -5,7 +5,7 @@ import {
   Middleware
 } from 'bitorjs-decorators';
 import menu from '../menu/';
-import wiki from '../view/';
+// import wiki from '../view/';
 import add from '../view/add';
 import list from '../view/list';
 import detail from '../view/detail';
@@ -17,7 +17,7 @@ import detail from '../view/detail';
 export default class {
   @Get('/')
   async markdown() {
-    this.ctx.render(wiki)
+    this.ctx.app.redirect('/wiki/type/1')
   }
 
   @Get('/add')

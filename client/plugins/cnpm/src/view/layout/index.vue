@@ -72,7 +72,7 @@ export default {
       }
       this.timer = setTimeout(() => {
         this.dataSource = value ? this.searchResult(value) : [];
-        window.location.hash = "/cnpm/search?q=" + value;
+        window.location.hash = "/cnpm/search?q=" + value.trim();
       }, 200);
     },
 

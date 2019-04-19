@@ -193,13 +193,17 @@ export default {
       this.form.validateFields(["username", "password"], (err, values) => {
         if (!err) {
           console.log(this.username, this.password);
-          this.$post("regist", {
+          this.$post("/regist", {
             username: this.form.getFieldValue("username"),
             password: this.form.getFieldValue("password")
           })
-            .then(() => {
-              this.$message.success("注册成功");
-              this.returnLogin();
+            .then(res => {
+              if (res.data[1]) {
+                this.$message.success("注册成功");
+                this.returnLogin();
+              } else {
+                this.$message.error("抱歉，注册账号已存在");
+              }
             })
             .catch(() => {
               this.$message.error("抱歉，注册账号失败");

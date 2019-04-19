@@ -23,23 +23,19 @@ export default [
   {
     name: 'mock',
     module: mock,
-    enable: true
+    enable: false
   },
   {
     name: 'cnpm',
     module: cnpm,
-    enable: true
+    enable: false
   },
   {
     name: 'post-man',
     module: postMan,
-    enable: true
+    enable: false
   },
-  {
-    name: 'system',
-    module: system,
-    enable: true
-  },
+
   {
     name: 'collection',
     module: collection,
@@ -56,8 +52,12 @@ export default [
   {
     name: 'assets',
     module: assets,
-    enable: true
+    enable: false
   },
 
-
+  {
+    name: 'system',
+    module: system,
+    enable: true
+  },
 ]

@@ -1,44 +1,36 @@
 export default async (ctx, next) => {
   // const store = ctx.$store.state.wiki;
   // store.editable = true;
+  let data = [];
+  if (ctx.$store.state.wiki.typeList && ctx.$store.state.wiki.typeList.length == 0) {
+    const list = await ctx.$post('/wiki/types');
+    data = list.data;
+    ctx.$store.state.wiki.typeList = data;
+  } else {
+    data = ctx.$store.state.wiki.typeList;
+  }
 
 
-  ctx.$store.state.main.sideMenu = [
+
+  let menu = [
     {
       name: '新建文档',
       click: () => {
         ctx.app.redirect("/wiki/add")
       }
     },
-    {
-      name: '入职指南',
-      click: () => {
-        ctx.app.redirect("/wiki/type/entry")
-      }
-    },
-    {
-      name: '技术分享',
-      click: () => {
-        ctx.app.redirect("/wiki/type/tech")
-      }
-    },
-    {
-      name: '开发规范',
-      click: () => {
-        ctx.app.redirect("/wiki/type/rule")
-      },
-      // children: [
-      //   {
-      //     name: '前端规范',
-      //     click: () => { }
-      //   },
-      //   {
-      //     name: '接口规范',
-      //     click: () => { }
-      //   }
-      // ]
-    },
-  ]
+  ];
 
+  data.forEach(item => {
+    menu.push({
+      name: `${item.title}`,
+      click: () => {
+        ctx.app.redirect(`/wiki/type/${item.id}`)
+      }
+    })
+  });
+
+
+  ctx.$store.state.main.sideMenu = menu;
   return await next()
 }

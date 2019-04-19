@@ -9,45 +9,53 @@ import {
 @Controller('/wiki')
 @Middleware('login')
 export default class {
+
+  @Post('/detail')
+  async detail(ctx) {
+    return await ctx.$service.wiki.getDetail(ctx.body);
+  }
+
+  @Post('/add/type')
+  async addType(ctx) {
+    return await ctx.$service.wiki.addType(ctx.body);
+  }
+
+  @Post('/add/article')
+  async addArticle(ctx) {
+    return await ctx.$service.wiki.addArticle(ctx.body);
+
+  }
+
+  @Post('/types')
+  async types(ctx) {
+    return await ctx.$service.wiki.getTypeList();
+  }
+
   @Get('/list')
-  async markdown(ctx, next) {
+  async list(ctx, next) {
     console.log(ctx)
+    let type = ctx.query.type;
+    const res = await ctx.$service.wiki.getList({
+      type: type
+    });
 
     let listData = [];
-    let len = 0;
-    if (ctx.query.type == "rule") {
-      listData = [
-        {
-          href: "0",
-          title: `前端规范`,
-          avatar: "hrr",
-          description: "b",
-          content: "b"
-        },
-        {
-          href: "1",
-          title: `接口规范`,
-          avatar: "hrr",
-          description: "b",
-          content: "b"
-        },
-      ]
-    } else if (ctx.query.type == "entry") {
-      len = 5;
-    } else {
-      len = 23;
-    }
-    for (let i = 0; i < len; i++) {
-      listData.push({
-        href: i,
-        title: `ant design vue part ${i}`,
-        avatar: "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png",
-        description:
-          "Ant Design, a design language for background applications, is refined by Ant UED Team.",
-        content:
-          "We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently."
+    if (res && res.data) {
+      let data = res.data;
+      data.forEach(item => {
+        listData.push({
+          href: item.id,
+          title: item.title,
+          description: item.type_id,
+          keywords: item.keywords ? item.keywords.split('|') : [],
+          content: item.content,
+          summary: item.summary,
+          star: item.star,
+          view: item.view
+        })
       });
     }
+
     return listData;
   }
 

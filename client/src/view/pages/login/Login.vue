@@ -117,7 +117,7 @@ export default {
   },
   computed: {
     systemName() {
-      return 1; //this.$store.state.setting.systemName;
+      return this.$store.state.setting.systemName;
     },
     copyright() {
       return 2; //this.$store.state.setting.copyright;
@@ -137,19 +137,25 @@ export default {
             this.loading = true;
             let name = this.form.getFieldValue("name");
             let password = this.form.getFieldValue("password");
-            this.$post("login", {
+            this.$post("/login", {
               username: name,
               password: password
             })
-              .then(r => {
-                let data = r.data.data;
-                this.saveLoginData(data);
+              .then(res => {
                 setTimeout(() => {
                   this.loading = false;
                 }, 500);
-                this.$router.push("/");
+                if (res.data) {
+                  this.$message.success("登录成功");
+                  let token = res.token;
+                  sessionStorage.setItem("token", token);
+
+                  this.ctx.app.redirect("/wiki");
+                } else {
+                  this.$message.error("抱歉，登录失败");
+                }
               })
-              .catch(() => {
+              .catch(err => {
                 setTimeout(() => {
                   this.loading = false;
                 }, 500);
@@ -165,7 +171,7 @@ export default {
             this.loading = true;
             let mobile = this.form.getFieldValue("mobile");
             let mail = this.form.getFieldValue("mail");
-            this.$post("login", {
+            this.$post("/login", {
               username: mobile,
               password: mail
             })

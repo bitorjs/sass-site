@@ -1,12 +1,48 @@
 import koaBody from 'koa-body'; //koa-bodyparser内置Request Body的解析器, 支持x-www-form-urlencoded, application/json等格式的请求体，但不支持form-data的请求体,，需要借助 formidable 这个库，也可以直接使用 koa-body 支持multipart，urlencoded和json请求体
 import koaStatic from 'koa-static'; // 配置静态文件服务的中间件
+import koaJWT from 'koa-jwt'; //JWT(Json Web Tokens)
 import koaHelmet from 'koa-helmet'; //增加如Strict-Transport-Security, X-Frame-Options, X-Frame-Options等网络安全HTTP头
 import koaCompress from 'koa-compress'; // 启用类似Gzip的压缩技术减少传输内容
 import koaCors from 'koa2-cors';
 import path from 'path';
 
+import jwt from 'jsonwebtoken';
 const cwd = process.cwd();
 export default app => {
+  app.use(function (ctx, next) {
+
+    return next().catch((err) => {
+      if (401 == err.status) {
+        ctx.status = 401;
+        ctx.body = err;
+        // {
+        //   code: '10002',
+        //   msg: 'Protected resource, use Authorization header to get access\n'
+        // };
+      } else {
+        throw err;
+      }
+    });
+  });
+
+  // app.use(async (ctx, next) => {
+  //   const token = ctx.header.authorization  // 获取jwt
+  //   let payload
+  //   if (token) {
+  //     payload = await jwt.verify(token.split(' ')[1], '密钥')  // // 解密，获取payload
+  //     console.log(payload)
+  //     // ctx.body = {
+  //     //   payload
+  //     // }
+  //   } else {
+  //     // ctx.body = {
+  //     //   message: 'token 错误',
+  //     //   code: -1
+  //     // }
+  //   }
+
+  //   await next()
+  // })
 
   // app.use(koaHelmet());
   app.use(koaCors({
@@ -22,7 +58,11 @@ export default app => {
     allowMethods: ['GET,HEAD'],
     // allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
   }));
-
+  app.use(koaJWT({
+    secret: '密钥'
+  }).unless({
+    path: ['/login', '/reg-user']
+  }));
   app.use(koaStatic(path.join(cwd, 'web')));
   app.use(koaBody({
     multipart: true, // 支持文件上传

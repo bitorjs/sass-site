@@ -9,5 +9,6 @@ export default {
       // },
     ],
     sideMenu: [],
+    systemName: "系统开发中",
   }
 }

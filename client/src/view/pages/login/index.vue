@@ -3,7 +3,6 @@
     <div class="content">
       <div class="top">
         <div class="header">
-          <img alt="logo" class="logo" src="assets/d2.png">
           <span class="title">{{systemName}}</span>
         </div>
         <div class="desc"></div>
@@ -27,7 +26,7 @@ export default {
   },
   computed: {
     systemName() {
-      return 1; //this.$store.state.setting.systemName;
+      return this.ctx.$store.state.main.systemName;
     },
     copyright() {
       return 2; //this.$store.state.setting.copyright;

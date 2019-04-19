@@ -1,7 +1,7 @@
 export default app => {
   app.on('ready', () => {
     app.ctx.$store.state.main.topMenu.push({
-      name: '系统管理',
+      name: '设置',
       click: () => {
         app.redirect('/system')
 

@@ -3,30 +3,36 @@ function redirect(ctx, path) {
 }
 
 export default async (ctx, next) => {
+  let data = [];
   const store = ctx.$store.state.collection;
-  ctx.$store.state.main.sideMenu = [
+  if (store.list && store.list.length == 0) {
+    const list = await ctx.$post('/collection/list');
+    data = list.data;
+    store.list = data;
+  } else {
+    data = store.list;
+  }
+
+  let menu = [
     {
       name: '新增收藏',
       click: () => {
-        // redirect(ctx, "/collection/add")
         store.showAdd = true;
       }
     },
-    {
-      name: "二维码",
-      click: () => {
-        redirect(ctx)
-        store.openUrl = "http://www.wwei.cn/"
-      }
-    },
-    {
-      name: "Json 格式化",
-      click: () => {
-        redirect(ctx)
-        store.openUrl = "https://www.json.cn/"
-      }
-    },
-  ]
+  ];
 
-  await next()
+  data.forEach(item => {
+    menu.push({
+      name: `${item.title}`,
+      click: () => {
+        redirect(ctx)
+        store.openUrl = item.url;
+      }
+    })
+  });
+
+
+  ctx.$store.state.main.sideMenu = menu;
+  return await next()
 }
