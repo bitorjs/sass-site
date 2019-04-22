@@ -1,5 +1,5 @@
 module.exports = {
-  jwt_secret: '',
+  jwt_secret: 'jwt_secret',
   database: {
     db: 'saas',
     username: 'root',

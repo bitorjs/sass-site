@@ -12,7 +12,7 @@ export default class {
 
   @Get('/login')
   async login() {
-    console.log("...///")
+    sessionStorage.clear();
     this.ctx.render(login, null)
   }
 

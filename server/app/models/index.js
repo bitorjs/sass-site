@@ -11,6 +11,8 @@ const user_role = require('./saas_user_role');
 const users = require('./saas_users');
 const wiki_article = require('./saas_wiki_article');
 const wiki_type = require('./saas_wiki_type');
+const project_deploy = require('./saas_project_deploy');
+const project_user = require('./saas_project_user');
 
 
 export default {
@@ -26,4 +28,7 @@ export default {
   Users: users(sequelize, DataTypes, Op),
   WikiArticle: wiki_article(sequelize, DataTypes, Op),
   WikiType: wiki_type(sequelize, DataTypes, Op),
+  ProjectDeploy: project_deploy(sequelize, DataTypes, Op),
+  ProjectUser: project_user(sequelize, DataTypes, Op),
+
 }

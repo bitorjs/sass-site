@@ -1,5 +1,5 @@
 export default async (ctx, next) => {
-  if (!ctx.user) {
+  if (sessionStorage.token) {
     return await next()
   } else {
     ctx.app.redirect('/login')

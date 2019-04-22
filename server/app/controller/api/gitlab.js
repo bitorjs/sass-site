@@ -13,25 +13,47 @@ const gitlab = new Gitlab({
 })
 @Controller('/gitlab')
 export default class {
-  constructor() {
-
-  }
 
   @Post("/groups")
-  async groups() {
-    // return gitlab.Groups.all();
-    return {}
+  async groups(ctx) {
+    // return 
+    ctx.body = await gitlab.Groups.all();
   }
 
   @Post("/projects")
-  async projects() {
-    console.log('----')
-    return gitlab.Projects.all({ maxPages: 2 });
+  async projects(ctx) {
+    ctx.body = await gitlab.Projects.all();
+  }
+
+  @Post("/user-projects")
+  async userprojects(ctx) {
+    // ctx.body = await gitlab.Projects.all();
+    ctx.body = await gitlab.Users.projects(ctx.request.body.id);
+    // ctx.body = await gitlab.Branches.all(393);
+    // ctx.body = await gitlab.Commits.all(393);
+  }
+
+  @Post("/search-projects")
+  async search_projects(ctx) {
+    // ctx.body = await gitlab.Projects.all();
+    ctx.body = await gitlab.Projects.search(ctx.request.body.name);
+    // ctx.body = await gitlab.Branches.all(393);
+    // ctx.body = await gitlab.Commits.all(393);
+  }
+
+  @Post("/project-branchs")
+  async projectbranchs(ctx) {
+    // ctx.body = await gitlab.Projects.all();
+    ctx.body = await gitlab.Branches.all(ctx.request.body.id);
+    // ctx.body = await gitlab.Branches.all(393);
+    // ctx.body = await gitlab.Commits.all(393);
   }
 
   @Post('/users')
-  async users() {
-    return gitlab.Users.all();
+  async users(ctx) {
+    ctx.body = await gitlab.Users.all();
+    // ctx.body = await gitlab.Users.current();
+    // ctx.body = await gitlab.Projects.Branches.all();
   }
 
 
