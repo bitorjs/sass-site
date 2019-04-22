@@ -44,7 +44,7 @@
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {
-    "bitorjs-decorators": "^1.0.2",
+    "bitorjs": "0.0.1",
     "error-formater": "^1.0.3",
     "gitlab": "^4.5.1",
     "is-type-of": "^1.2.1",

@@ -1,4 +1,5 @@
-import KoaAppliction from './inject';
+// import KoaAppliction from './inject';
+import KoaAppliction from 'bitorjs';
 const config = require('./config');
 // import path from 'path';
 let client = app => {
@@ -7,4 +8,4 @@ let client = app => {
   app.watch(require.context("./app", true, /.*\.js$/));
 }
 
-new KoaAppliction().start(client, 1029);
+new KoaAppliction().start(client, 1030);

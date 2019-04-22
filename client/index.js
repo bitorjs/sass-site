@@ -1,6 +1,6 @@
 import "normalize.css";
 import Vue from 'vue';
-import Application from './inject';
+import Application from 'bitorjs';
 import 'ant-design-vue/dist/antd.css'
 import Antd from 'ant-design-vue'
 import main from './src/view';

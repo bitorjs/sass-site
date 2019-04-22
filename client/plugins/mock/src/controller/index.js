@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Middleware
-} from 'bitorjs-decorators';
+} from 'bitorjs';
 import index from '../view/';
 
 @Controller('/mock')

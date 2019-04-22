@@ -4,7 +4,7 @@ import {
   Post,
   Put,
   Middleware
-} from 'bitorjs-decorators';
+} from 'bitorjs';
 
 @Controller('/deploy')
 export default class {

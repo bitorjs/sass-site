@@ -2,18 +2,18 @@ import axios from 'axios';
 
 export default (app, option) => {
   const instance = axios.create({
-    baseURL: "http://localhost:1029",
+    baseURL: option.baseURL || "http://localhost:1030",
     // `timeout` 指定请求超时的毫秒数(0 表示无超时时间)
     // 如果请求话费了超过 `timeout` 的时间，请求将被中断
-    timeout: 1000,
+    timeout: option.timeout || 1000,
     // `withCredentials` 表示跨域请求时是否需要使用凭证
-    withCredentials: false, // 默认的false, true:让ajax携带cookie
+    withCredentials: option.withCredentials || false, // 默认的false, true:让ajax携带cookie
   });
   setHeaders(instance)
   requestIntercptor(instance);
   responceIntercptor(instance);
   instance.app = app;
-  app.$ajax = app.ctx.$ajax = instance;
+  app[option.name || '$ajax'] = app.ctx[option.name || '$ajax'] = instance;
 }
 
 function setHeaders(axios) {

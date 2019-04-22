@@ -40,8 +40,16 @@ module.exports = {
         // false：不要为每个文件自动添加polyfill，也不要将“@ babel / polyfill”导入到单个polyfill。
       }
     ]
-  ], 
+  ],
   "plugins": [
+    // [
+    //   "import",
+    //   {
+    //     "libraryName": "ant-design-vue",
+    //     "libraryDirectory": "lib",
+    //     "style": "css"
+    //   }
+    // ],
     "@babel/plugin-transform-block-scoping",
     "@babel/plugin-transform-parameters",
     [
@@ -66,7 +74,7 @@ module.exports = {
       "loose": true,
       "useBuiltIns": true
     }],
-    
+
     // "@babel/plugin-transform-runtime"
   ]
 }

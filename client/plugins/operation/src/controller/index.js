@@ -3,7 +3,7 @@ import {
   Get,
   Post,
   Middleware
-} from 'bitorjs-decorators';
+} from 'bitorjs';
 import menu from '../menu/';
 
 import index from '../view/';
