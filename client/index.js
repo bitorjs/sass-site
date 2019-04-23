@@ -12,4 +12,4 @@ const client = (app) => {
   app.watch(require.context('./src', true, /^((?!\/view\/).)+\.(vue|js)$/));
 }
 
-new Application().start(client, main)
+new Application({}, main).start(client)

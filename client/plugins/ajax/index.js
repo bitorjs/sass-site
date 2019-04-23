@@ -13,7 +13,7 @@ export default (app, option) => {
   requestIntercptor(instance);
   responceIntercptor(instance);
   instance.app = app;
-  app[option.name || '$ajax'] = app.ctx[option.name || '$ajax'] = instance;
+  app[option.export || '$ajax'] = app.ctx[option.export || '$ajax'] = instance;
 }
 
 function setHeaders(axios) {
