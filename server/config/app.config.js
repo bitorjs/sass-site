@@ -1,5 +1,9 @@
 module.exports = {
   jwt_secret: 'jwt_secret',
+  redis: {
+    enable: true,
+    connectOptions: null,
+  },
   database: {
     db: 'saas',
     username: 'root',

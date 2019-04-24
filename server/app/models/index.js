@@ -30,5 +30,4 @@ export default {
   WikiType: wiki_type(sequelize, DataTypes, Op),
   ProjectDeploy: project_deploy(sequelize, DataTypes, Op),
   ProjectUser: project_user(sequelize, DataTypes, Op),
-
 }

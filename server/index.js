@@ -3,7 +3,7 @@ import KoaAppliction from 'bitorjs';
 import koaBody from 'koa-body'; //koa-bodyparser内置Request Body的解析器, 支持x-www-form-urlencoded, application/json等格式的请求体，但不支持form-data的请求体,，需要借助 formidable 这个库，也可以直接使用 koa-body 支持multipart，urlencoded和json请求体
 import koaStatic from 'koa-static'; // 配置静态文件服务的中间件
 import koaJWT from 'koa-jwt'; //JWT(Json Web Tokens)
-import koaHelmet from 'koa-helmet'; //增加如Strict-Transport-Security, X-Frame-Options, X-Frame-Options等网络安全HTTP头
+// import koaHelmet from 'koa-helmet'; //增加如Strict-Transport-Security, X-Frame-Options, X-Frame-Options等网络安全HTTP头
 import koaCompress from 'koa-compress'; // 启用类似Gzip的压缩技术减少传输内容
 import koaCors from 'koa2-cors';
 import path from 'path';
@@ -135,9 +135,17 @@ let client = app => {
       }))
     }
   }
+
+  app.on('ready', async () => {
+    let r = await app.$store.test.get('hi');
+    let t = await app.$store.up.get('hi');
+    console.log('@@@@@', r, t)
+  })
   // app.config(config)
   app.watch(require.context("./config", true, /.*\.js$/));
   app.watch(require.context("./app", true, /.*\.js$/));
+
+
 }
 
 new KoaAppliction().start(client, 1030);
