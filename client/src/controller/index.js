@@ -19,16 +19,16 @@ export default class {
   @Post('/login')
   async login_post(ctx) {
     return ctx.$service.main.login({
-      username: ctx.body.username,
-      password: ctx.body.password
+      username: ctx.request.body.username,
+      password: ctx.request.body.password
     })
   }
 
   @Post('/regist')
   async register_post(ctx) {
     return ctx.$service.main.register({
-      username: ctx.body.username,
-      password: ctx.body.password,
+      username: ctx.request.body.username,
+      password: ctx.request.body.password,
     })
   }
 }

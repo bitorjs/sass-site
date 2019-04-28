@@ -5,11 +5,6 @@ const base = require('./webpack.base');
 
 const cwd = process.cwd();
 
-// the path(s) that should be cleaned
-let pathsToClean = [
-  'dist'
-]
-
 // the clean options to use
 let cleanOptions = {
   root: cwd,

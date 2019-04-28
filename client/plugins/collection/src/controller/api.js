@@ -11,11 +11,11 @@ import {
 export default class {
   @Post('/add')
   async add(ctx) {
-    return await ctx.$service.collection.add(ctx.body);
+    return await ctx.$service.collection.add(ctx.request.body);
   }
 
   @Post('/list')
   async list(ctx) {
-    return await ctx.$service.collection.list(ctx.body);
+    return await ctx.$service.collection.list(ctx.request.body);
   }
 }

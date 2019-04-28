@@ -12,17 +12,17 @@ export default class {
 
   @Post('/detail')
   async detail(ctx) {
-    return await ctx.$service.wiki.getDetail(ctx.body);
+    return await ctx.$service.wiki.getDetail(ctx.request.body);
   }
 
   @Post('/add/type')
   async addType(ctx) {
-    return await ctx.$service.wiki.addType(ctx.body);
+    return await ctx.$service.wiki.addType(ctx.request.body);
   }
 
   @Post('/add/article')
   async addArticle(ctx) {
-    return await ctx.$service.wiki.addArticle(ctx.body);
+    return await ctx.$service.wiki.addArticle(ctx.request.body);
 
   }
 

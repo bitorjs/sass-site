@@ -74,7 +74,7 @@ let client = app => {
   app.use(koaJWT({
     secret: '密钥'
   }).unless({
-    path: ['/login', '/reg-user']
+    path: ['/login', '/reg-user', '/test/ss']
   }));
   app.use(koaStatic(path.join(cwd, 'web')));
   app.use(koaBody({
@@ -137,8 +137,11 @@ let client = app => {
   }
 
   app.on('ready', async () => {
-    let r = await app.$store.test.get('hi');
-    let t = await app.$store.up.get('hi');
+    // let r = await app.$store.test.get('hi');
+    // let t = await app.$store.up.get('hi');
+    // app.$store.test.hi = '--==';
+    let r = await app.$store.test.hi;
+    let t = await app.$store.up.hi;
     console.log('@@@@@', r, t)
   })
   // app.config(config)

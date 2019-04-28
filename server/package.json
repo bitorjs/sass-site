@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bitorjs/pm-site.git"
+    "url": "git+https://github.com/bitorjs/sass-site.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bitorjs/pm-site/issues"
+    "url": "https://github.com/bitorjs/sass-site/issues"
   },
-  "homepage": "https://github.com/bitorjs/pm-site#readme",
+  "homepage": "https://github.com/bitorjs/sass-site#readme",
   "devDependencies": {
     "@babel/core": "^7.4.0",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
@@ -41,6 +41,7 @@
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
     "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2",
     "webpack-shell-plugin": "^0.5.0"
   },
   "dependencies": {

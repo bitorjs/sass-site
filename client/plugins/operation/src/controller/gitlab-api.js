@@ -17,28 +17,28 @@ export default class {
 
   @Post('/projects')
   async projects(ctx) {
-    return this.ctx.$ajax.post('/gitlab/projects', ctx.body, {
+    return this.ctx.$ajax.post('/gitlab/projects', ctx.request.body, {
       timeout: 18000
     });
   }
 
   @Post('/user-projects')
   async userprojects(ctx) {
-    return this.ctx.$ajax.post('/gitlab/user-projects', ctx.body, {
+    return this.ctx.$ajax.post('/gitlab/user-projects', ctx.request.body, {
       timeout: 12000
     });
   }
 
   @Post('/project-branchs')
   async projectbranchs(ctx) {
-    return this.ctx.$ajax.post('/gitlab/project-branchs', ctx.body, {
+    return this.ctx.$ajax.post('/gitlab/project-branchs', ctx.request.body, {
       timeout: 6000
     });
   }
 
   @Post('/search/projects')
   async search_projects(ctx) {
-    return this.ctx.$ajax.post('/gitlab/search-projects', ctx.body, {
+    return this.ctx.$ajax.post('/gitlab/search-projects', ctx.request.body, {
       timeout: 6000
     });
   }
