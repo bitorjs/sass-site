@@ -1,6 +1,6 @@
 var path = require('path');
-const fs = require('fs');
-const pkg = require('../package.json');
+// const fs = require('fs');
+// const pkg = require('../package.json');
 const cwd = process.cwd();
 var nodeExternals = require('webpack-node-externals');
 const babel = require(path.join(cwd, '.babelrc.js'));
@@ -36,21 +36,6 @@ const babel = require(path.join(cwd, '.babelrc.js'));
 // }
 // 也可以这样
 
-// externals:["React","jQuery"]
-const nodeModules = {
-  "sequelize": "sequelize"
-};
-
-fs.readdirSync('node_modules')
-  .filter((catalogue) => {
-    return ['.bin', ...Object.keys(pkg['dependencies'])].indexOf(catalogue) === -1;
-  })
-  .forEach((mod) => {
-    nodeModules[mod] = 'commonjs ' + mod;
-  });
-
-console.log(nodeExternals())
-
 // https://www.cnblogs.com/skylor/p/7008756.html 【webpack整理】
 module.exports = {
   entry: './index.js',
@@ -58,26 +43,26 @@ module.exports = {
   output: {
     filename: 'server.js',
     path: path.resolve(cwd, 'dist'),
-    libraryTarget: 'commonjs', // window|var|umd|amd|commonjs|jsonp
+    // libraryTarget: 'commonjs', // window|var|umd|amd|commonjs|jsonp
   },
-  externals: nodeModules,//[nodeExternals({include: ["sequelize"]})],//
+  externals: [nodeExternals({
+    whitelist: Object.keys(require('../package.json')['dependencies']),
+  })],//
   target: 'node',
-  // 增加node配置
+  // 增加node配置_externals(),//nodeModules,//
   // 官方文档：这些选项可以配置是否 polyfill 或 mock 某些 Node.js全局变量和模块。这可以使最初为 Node.js 环境编写的代码，在其他环境（如浏览器）中运行。
   node: {
     console: true,
     global: true,
     process: true,
     Buffer: true,
-    filename: true,
-    dirname: true,
     setImmediate: true,
-    __filename: false,
-    __dirname: false
+    __filename: true,
+    __dirname: true
   },
   resolve: {
     extensions: [
-      '.js', '.json', '.mjs',
+      '.js', //'.json', //'.mjs',
     ]
   },
   module: {
@@ -87,11 +72,12 @@ module.exports = {
       loader: "babel-loader",
       options: babel
     },
-    {
-      test: /\.mjs$/,
-      include: /node_modules/,
-      type: 'javascript/auto'
-    }]
+      // {
+      //   test: /\.mjs$/,
+      //   include: /node_modules/,
+      //   type: 'javascript/auto'
+      // }
+    ]
   },
   watchOptions: {
     ignored: [path.resolve(cwd, './dist/**/*.*'), 'node_modules']

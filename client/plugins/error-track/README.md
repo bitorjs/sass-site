@@ -1,0 +1,64 @@
+- ECMAScript 2015中定义的错误构造函数。
+  - **EvalError** eval错误
+  - **RangeError** 范围错误
+  - **ReferenceError** 引用错误
+  - **TypeError** 类型错误
+  - **URIError** URI错误
+  - **SyntaxError** 语法错误 (这个错误WebIDL中故意省略，保留给ES解析器使用)
+  - **Error** 通用错误 （这个错误WebIDL中故意省略，保留给开发者使用使用）
+- DOM错误类型。
+  - **IndexSizeError** 索引不在允许的范围内
+  - **HierarchyRequestError** 节点树层次结构是不正确的。
+  - **WrongDocumentError** 对象是错误的
+  - **InvalidCharacterError** 字符串包含无效字符。
+  - **NoModificationAllowedError** 对象不能被修改。
+  - **NotFoundError** 对象不能在这里被找到。
+  - **NotSupportedError** 不支持的操作
+  - **InvalidStateError** 对象是一个无效的状态。
+  - **SyntaxError** 字符串不匹配预期的模式
+  - **InvalidModificationError** 对象不能以这种方式被修改
+  - **NamespaceError** 操作在XML命名空间内是不被允许的
+  - **InvalidAccessError** 对象不支持这种操作或参数。
+  - **TypeMismatchError** 对象的类型不匹配预期的类型。
+  - **SecurityError** 此操作是不安全的。
+  - **NetworkError** 发生网络错误
+  - **AbortError** 操作被中止
+  - **URLMismatchError** 给定的URL不匹配另一个URL。
+  - **QuotaExceededError** 已经超过给定配额。
+  - **TimeoutError** 操作超时。
+  - **InvalidNodeTypeError** 这个操作的 节点或节点祖先 是不正确的
+  - **DataCloneError** 对象不能克隆。
+
+- 异常按照捕获方式分类
+  - 运行时异常
+  - 资源加载异常
+  - 异步请求异常
+  - Promise异常
+- 异常的捕获方式
+  - try-catch (ES提供基本的错误捕获语法)
+    - 只能捕获同步代码的异常
+    - ~~回调~~
+    - ~~setTimeout~~
+    - ~~promise~~
+  - window.onerror = cb (DOM0)
+    - img
+    - script
+    - link
+  - window.addEventListener('error', cb, true) (DOM2)
+  - window.addEventListener("unhandledrejection", cb) (DOM4)
+  - window.addEventListener("rejectionhandled", cb)(DOM5 迟来的catch)
+  - Promise.then().catch(cb)
+  - 封装XMLHttpRequest&fetch | 覆写请求接口对象
+- React 全局捕获 
+  - componentDidCatch(error, info){}
+- Vue 全局捕获 
+  - Vue.config.errorHandler = function (err, vm, info){}
+
+
+
+### 业界已经有的监控平台
+
+- Sentry开源
+- 阿里的ARMS
+- fundebug
+- FrontJS

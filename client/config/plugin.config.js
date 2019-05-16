@@ -1,4 +1,4 @@
-import ajax from '../plugins/ajax';
+import ajax from '../plugins/axios';
 import wiki from '../plugins/wiki';
 import mock from '../plugins/mock';
 import cnpm from '../plugins/cnpm';
@@ -11,9 +11,12 @@ import operation from '../plugins/operation';
 
 export default [
   {
-    name: 'ajax',
-    module: ajax,
-    enable: true
+    name: 'axios',
+    module: axios,
+    enable: true,
+    export: '$ajax',
+    baseUrl: '/',
+    timeout: 1000
   },
   {
     name: 'wiki',

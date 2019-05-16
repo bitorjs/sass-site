@@ -37,6 +37,7 @@
     "babel-loader": "^8.0.5",
     "clean-webpack-plugin": "^2.0.1",
     "open-browser-webpack-plugin": "0.0.5",
+    "sequelize": "^5.2.7",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
@@ -66,7 +67,6 @@
     "normalize-registry-metadata": "^1.1.2",
     "qs": "^6.7.0",
     "redis": "^2.8.0",
-    "sequelize": "^5.2.7",
     "urllib": "^2.33.2",
     "utility": "^1.16.1",
     "xss": "^1.0.6"
