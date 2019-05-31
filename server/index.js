@@ -22,6 +22,10 @@ let client = app => {
     console.log('.....error...', err)
   });
 
+  // app.use((ctx, next)=>{
+
+  // })
+
   app.use(function (ctx, next) {
 
     return next().catch((err) => {
@@ -71,11 +75,11 @@ let client = app => {
     allowMethods: ['GET,HEAD'],
     // allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
   }));
-  app.use(koaJWT({
-    secret: '密钥'
-  }).unless({
-    path: ['/login', '/reg-user', '/test/ss']
-  }));
+  // app.use(koaJWT({
+  //   secret: '密钥'
+  // }).unless({
+  //   path: ['/login', '/reg-user', '/test/ss']
+  // }));
   app.use(koaStatic(path.join(cwd, 'web')));
   app.use(koaBody({
     multipart: true, // 支持文件上传

@@ -12,7 +12,7 @@ import operation from '../plugins/operation';
 export default [
   {
     name: 'axios',
-    module: axios,
+    module: ajax,
     enable: true,
     export: '$ajax',
     baseUrl: '/',

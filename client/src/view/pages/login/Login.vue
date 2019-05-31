@@ -20,7 +20,7 @@
           <a-form-item>
             <a-input
               size="large"
-              placeholder="账户"
+              placeholder="账户: bitores"
               v-decorator="['name', {rules: [{ required: true, message: '请输入账户名', whitespace: true}]}]"
             >
               <a-icon slot="prefix" type="user"></a-icon>
@@ -30,7 +30,7 @@
             <a-input
               size="large"
               type="password"
-              placeholder="密码"
+              placeholder="密码: ab123456"
               v-decorator="['password', {rules: [{ required: true, message: '请输入密码', whitespace: true}]}]"
             >
               <a-icon slot="prefix" type="lock"></a-icon>
@@ -145,6 +145,7 @@ export default {
                 setTimeout(() => {
                   this.loading = false;
                 }, 500);
+
                 if (res.data) {
                   this.$message.success("登录成功");
                   let token = res.token;

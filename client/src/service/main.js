@@ -10,7 +10,7 @@ export default class {
   }
 }
 
-export const test = function () {
-  console.log(this.$service)
-  return 1;
-}
+// export const test = function () {
+//   console.log(this.$service)
+//   return 1;
+// }
