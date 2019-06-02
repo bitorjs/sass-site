@@ -1,5 +1,4 @@
-// import KoaAppliction from './inject';
-import KoaAppliction from 'bitorjs';
+import KoaAppliction from 'bitorjs/koa';
 import koaBody from 'koa-body'; //koa-bodyparser内置Request Body的解析器, 支持x-www-form-urlencoded, application/json等格式的请求体，但不支持form-data的请求体,，需要借助 formidable 这个库，也可以直接使用 koa-body 支持multipart，urlencoded和json请求体
 import koaStatic from 'koa-static'; // 配置静态文件服务的中间件
 import koaJWT from 'koa-jwt'; //JWT(Json Web Tokens)
@@ -12,30 +11,22 @@ import koaProxy from 'koa-proxies';
 
 const cwd = process.cwd();
 let client = app => {
-  app.on('error', (err, ctx) => {
-    // if (401 == err.status) {
-    //   ctx.status = 401;
-    //   ctx.body = 'Protected resource, use Authorization header to get access\n';
-    // } else {
-    //   throw err;
-    // }
+  app.on('error', async (err, ctx) => {
+    if (401 == err.status) {
+      ctx.status = 401;
+      ctx.body = 'Protected resource, use Authorization header to get access\n';
+    } else {
+      throw err;
+    }
     console.log('.....error...', err)
-  });
+  })
 
-  // app.use((ctx, next)=>{
+  app.use(async (ctx, next) => {
 
-  // })
-
-  app.use(function (ctx, next) {
-
-    return next().catch((err) => {
+    return await next().catch((err) => {
       if (401 == err.status) {
         ctx.status = 401;
         ctx.body = err;
-        // {
-        //   code: '10002',
-        //   msg: 'Protected resource, use Authorization header to get access\n'
-        // };
       } else {
         throw err;
       }
@@ -58,28 +49,28 @@ let client = app => {
   //     // }
   //   }
 
-  //   await next()
+  //   return await next()
   // })
 
   // app.use(koaHelmet());
   app.use(koaCors({
-    // origin: function (ctx) {
-    //   if (ctx.url === '/test') {
-    //     return false;
-    //   }
-    //   return '*';
-    // },
-    // exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
-    // maxAge: 5,
-    // credentials: true,
+    origin: function (ctx) {
+      // if (ctx.url === '/test') {
+      //   return false;
+      // }
+      return '*';
+    },
+    exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
+    maxAge: 5,
+    credentials: true,
     allowMethods: ['GET,HEAD'],
-    // allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
   }));
-  // app.use(koaJWT({
-  //   secret: '密钥'
-  // }).unless({
-  //   path: ['/login', '/reg-user', '/test/ss']
-  // }));
+  app.use(koaJWT({
+    secret: '密钥'
+  }).unless({
+    path: ['/login', '/reg-user', '/test']
+  }));
   app.use(koaStatic(path.join(cwd, 'web')));
   app.use(koaBody({
     multipart: true, // 支持文件上传
@@ -148,7 +139,7 @@ let client = app => {
     let t = await app.$store.up.hi;
     console.log('@@@@@', r, t)
   })
-  // app.config(config)
+
   app.watch(require.context("./config", true, /.*\.js$/));
   app.watch(require.context("./app", true, /.*\.js$/));
 

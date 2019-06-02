@@ -25,16 +25,17 @@ export default class {
 
   @Post('/login')
   async login(ctx, next) {
-
     const data = await ctx.$service.login.login(ctx.request.body);
     let body = ctx.request.body;
-    ctx.type = 'application/json;charset=UTF-8';
+    // ctx.type = 'application/json;charset=UTF-8';
     const token = jwt.sign({
       name: body.username,
       passwd: body.passwd
     }, '密钥', {
         expiresIn: '2h'
       });
+    console.log('.... post login', ctx.status)
+
     if (data) {
       return ctx.body = {
         code: '000001',
