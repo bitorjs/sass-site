@@ -66,7 +66,7 @@
     "nodemailer": "^6.0.0",
     "normalize-registry-metadata": "^1.1.2",
     "qs": "^6.7.0",
-    "redis": "^2.8.0",
+    "redis": "^3.1.1",
     "urllib": "^2.33.2",
     "utility": "^1.16.1",
     "xss": "^1.0.6"
